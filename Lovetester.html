@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Test ❤️</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff6b81, #ffb6c1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+        }
+        h1 {
+            color: #ff4c6e;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-family: 'Tahoma', sans-serif;
+        }
+        label {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #ff4c6e;
+            display: inline-block;
+        }
+        input[type="text"] {
+            width: 90%;
+            padding: 12px;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            border: 2px solid #ff4c6e;
+            border-radius: 10px;
+            outline: none;
+            box-sizing: border-box;
+            transition: all 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #ff6b81;
+        }
+        button {
+            background-color: #ff4c6e;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff6b81;
+            transform: scale(1.05);
+        }
+        .heart-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 30px auto;
+            overflow: hidden; /* Verhindert das Herauslaufen des Füllbalkens */
+        }
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+        .heart-fill {
+            fill: #ff4c6e;
+            transform: scaleY(0);
+            transform-origin: center bottom;
+            transition: transform 2s ease-out;
+        }
+        .heart-outline {
+            fill: none;
+            stroke: #ff6b81;
+            stroke-width: 10;
+        }
+        .result {
+            font-size: 1.5rem;
+            color: #333;
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .pulsing-heart {
+            animation: pulse 1s ease-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Love Test ❤️</h1>
+        <form id="loveTestForm">
+            <label for="yourName">Dein Name:</label>
+            <input type="text" id="yourName" placeholder="Dein Name hier">
+
+            <label for="crushName">Name der Person:</label>
+            <input type="text" id="crushName" placeholder="Name deines Crushs">
+
+            <button type="button" onclick="calculateLove()">Test starten</button>
+        </form>
+
+        <div class="heart-container">
+            <svg viewBox="0 0 100 100">
+                <path class="heart-fill" id="heartFill" d="M50 85s35-25 35-50c0-17-14-25-23-25-6 0-10 5-12 9-2-4-6-9-12-9-9 0-23 8-23 25 0 25 35 50 35 50z"></path>
+                <path class="heart-outline" d="M50 85s35-25 35-50c0-17-14-25-23-25-6 0-10 5-12 9-2-4-6-9-12-9-9 0-23 8-23 25 0 25 35 50 35 50z"></path>
+            </svg>
+        </div>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateLove() {
+            const yourName = document.getElementById('yourName').value;
+            const crushName = document.getElementById('crushName').value;
+
+            if (!yourName || !crushName) {
+                document.getElementById('result').textContent = 'Bitte gib beide Namen ein!';
+                return;
+            }
+
+            const loveScore = Math.floor(Math.random() * 100) + 1;
+            const heartFill = document.getElementById('heartFill');
+            const resultText = document.getElementById('result');
+            const heartContainer = document.querySelector('.heart-container');
+
+            // Füge den Poch-Effekt hinzu
+            heartContainer.classList.add('pulsing-heart');
+
+            // Animation der Herzfüllung
+            const scale = loveScore / 100; // Skaliert die Füllung basierend auf dem Prozentwert
+            heartFill.style.transform = `scaleY(${scale})`;
+
+            setTimeout(() => {
+                resultText.textContent = 
+                    `${yourName} ❤️ ${crushName}: Eure Liebeschancen liegen bei ${loveScore}%!`;
+                
+                // Entferne den Poch-Effekt nach der Anzeige
+                heartContainer.classList.remove('pulsing-heart');
+                
+                // Öffne den Werbelink nach dem Test
+                window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+            }, 2000); // Zeigt das Ergebnis nach der Animation an
+        }
+    </script>
+</body>
+</html>
+
+
